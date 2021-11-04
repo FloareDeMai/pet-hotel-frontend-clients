@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import AuthService from "../services/auth.service";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Form, Input, Button } from "antd";
+import { useAtom } from "jotai";
+import { userAtom } from "../App";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#d69e2e" : "white",
@@ -42,6 +44,7 @@ const tailFormItemLayout = {
 };
 
 function Login() {
+  const [userLogged, setUserLogged] = useAtom(userAtom);
   const [hover, setHover] = useState(false);
   const [form] = Form.useForm();
   const [formLayout, setFormLayout] = useState("vertical");
@@ -52,7 +55,9 @@ function Login() {
     let password = values.password;
 
     let user = { username, password };
-    await AuthService.login(user);
+    await AuthService.login(user).then(() => {
+      setUserLogged(true);
+    });
     history.push("/");
   };
 
@@ -70,7 +75,11 @@ function Login() {
           <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div class="w-full">
               <div class="flex justify-center">
-                <img src="../images/birdhouse.png" alt="pets" className="h-20" />
+                <img
+                  src="../images/birdhouse.png"
+                  alt="pets"
+                  className="h-20"
+                />
               </div>
               <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
                 Sign up
@@ -96,8 +105,7 @@ function Login() {
                     ]}
                   >
                     <Input
-                    
-                    autoFocus="autofocus"
+                      autoFocus="autofocus"
                       prefix={<UserOutlined className="site-form-item-icon" />}
                       placeholder="Username"
                     />

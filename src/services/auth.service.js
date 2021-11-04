@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const API_URL = "http://localhost:8080/api/auth";
 
 const register =  (registerForm) => {
@@ -8,9 +9,9 @@ const register =  (registerForm) => {
 }
 
 const login = async (loginForm) => {
+   
     const response = await axios.post(API_URL + "/login",  loginForm );
     if (response.data.token) {
-        console.log(response);
         localStorage.setItem("user", JSON.stringify(response.data));
         localStorage.setItem("token", JSON.stringify(response.data.token));
     }
@@ -19,6 +20,7 @@ const login = async (loginForm) => {
 
 
 const logout = () => {
+  console.log("logout");
   localStorage.removeItem("user");
   localStorage.removeItem("token");
 };
