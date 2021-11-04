@@ -3,6 +3,8 @@ import { useHistory } from "react-router-dom";
 import { Form, Input, Button } from "antd";
 import AuthService from "../services/auth.service";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#d69e2e" : "white",
@@ -51,8 +53,40 @@ function Register() {
     let password = values.confirm;
     let email = values.email;
     let user = { username, password, email };
-    await AuthService.register(user);
-    history.push("/login");
+    AuthService.register(user).then(
+      (res) => {
+        if (res.status === 200) {
+          showToastSuccess("User register successfuly!");
+          history.push("/login");
+        }
+      },
+      (error) => {
+        showToastError(error.response.data.message);
+      }
+    );
+  };
+
+  const showToastError = (message) => {
+    toast.error(message, {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  const showToastSuccess = (message) => {
+    toast.success(message, {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (
@@ -66,6 +100,17 @@ function Register() {
               alt="img"
             />
           </div>
+          <ToastContainer
+            position="top-left"
+            autoClose={2000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
             <div className="w-full">
               <div className="flex justify-center">

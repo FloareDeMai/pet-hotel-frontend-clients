@@ -6,6 +6,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Form, Input, Button } from "antd";
 import { useAtom } from "jotai";
 import { userAtom } from "../App";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#d69e2e" : "white",
@@ -55,10 +57,40 @@ function Login() {
     let password = values.password;
 
     let user = { username, password };
-    await AuthService.login(user).then(() => {
-      setUserLogged(true);
+    await AuthService.login(user).then(
+      (res) => {
+          showToastSuccess("User logged in successfuly!");
+          setUserLogged(true);
+          history.push("/")
+      },
+      (error) => {
+           showToastError(error.response.data.message);
+      
+      }
+        
+    )};
+
+  const showToastError = (message) => {
+    toast.error(message, {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
     });
-    history.push("/");
+  };
+  const showToastSuccess = (message) => {
+    toast.success(message, {
+      position: "top-left",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   return (
