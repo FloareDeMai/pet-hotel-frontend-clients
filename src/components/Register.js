@@ -6,8 +6,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#d69e2e" : "white",
-  color: hover ? "white" : "black",
-  border: hover ? "1px #d69e2e solid" : "1px #d69e2e solid",
+  color: hover ? "#553c9a" : "#553c9a",
+  border: hover ? "2px #d69e2e solid" : "2px #d69e2e solid",
 });
 
 const formItemLayout = {
@@ -56,22 +56,22 @@ function Register() {
   };
 
   return (
-    <div class="flex items-center ">
-      <div class="flex-1 h-full max-w-4xl mx-auto  rounded-lg shadow-xl">
-        <div class="my-auto flex flex-col md:flex-row ">
-          <div class="invisible md:visible h-32 md:h-auto md:w-1/2">
+    <div className="flex items-center ">
+      <div className="flex-1 h-full max-w-4xl mx-auto  rounded-lg shadow-xl">
+        <div className="my-auto flex flex-col md:flex-row ">
+          <div className="invisible md:visible h-32 md:h-auto md:w-1/2">
             <img
               className="object-cover w-full h-full"
               src="https://image.freepik.com/vecteurs-libre/chien-chat-animal-maison-logo-icone-illustration_7688-1444.jpg"
               alt="img"
             />
           </div>
-          <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-            <div class="w-full">
-              <div class="flex justify-center">
+          <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+            <div className="w-full">
+              <div className="flex justify-center">
                 <img src="../images/pets.png" alt="pets" className="h-20" />
               </div>
-              <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
+              <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
                 Sign up
               </h1>
               <div>
@@ -142,7 +142,7 @@ function Register() {
                     <Input.Password
                       prefix={<LockOutlined className="site-form-item-icon" />}
                       type="password"
-                      placeholder="Password"
+                      placeholder="Confirm password"
                     />
                   </Form.Item>
 
@@ -170,7 +170,7 @@ function Register() {
                       onPointerOut={() => setHover(false)}
                       type="primary"
                       htmlType="submit"
-                      className="rounded-full"
+                      className="rounded-full font-semibold"
                     >
                       Submit
                     </Button>

@@ -9,8 +9,8 @@ import { userAtom } from "../App";
 
 const buttonStyle = ({ hover }) => ({
   background: hover ? "#d69e2e" : "white",
-  color: hover ? "white" : "black",
-  border: hover ? "1px #d69e2e solid" : "1px #d69e2e solid",
+  color: hover ? "#553c9a" : "#553c9a",
+  border: hover ? "2px #d69e2e solid" : "2px #d69e2e solid",
 });
 
 const formItemLayout = {
@@ -82,7 +82,7 @@ function Login() {
                 />
               </div>
               <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
-                Sign up
+                Sign in
               </h1>
               <div>
                 <Form
@@ -112,6 +112,7 @@ function Login() {
                   </Form.Item>
 
                   <Form.Item
+                    style={{ marginBottom: 0 }}
                     name="password"
                     rules={[
                       {
@@ -128,6 +129,18 @@ function Login() {
                     />
                   </Form.Item>
 
+                  <div class="my-2 text-center">
+                    <p class="text-sm">
+                      Don't have an account yet?{" "}
+                      <Link
+                        to={{ pathname: "/register" }}
+                        className="text-blue-600 hover:underline"
+                      >
+                        {" "}
+                        Sign up.
+                      </Link>
+                    </p>
+                  </div>
                   <Form.Item {...tailFormItemLayout} className="">
                     <Button
                       style={buttonStyle({ hover })}
@@ -135,7 +148,7 @@ function Login() {
                       onPointerOut={() => setHover(false)}
                       type="primary"
                       htmlType="submit"
-                      className="rounded-full"
+                      className="rounded-full font-semibold"
                     >
                       LogIn
                     </Button>

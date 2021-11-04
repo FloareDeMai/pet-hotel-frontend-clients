@@ -14,7 +14,7 @@ let history = useHistory();
 
   const handleLogOut = () => {
     AuthService.logout();
-    history.push("/login");
+    history.push("/");
     setUserLogged(false);
     
   };
@@ -61,7 +61,9 @@ let history = useHistory();
           Profile
         </Link>
         {userLogged ? (
-          <Button onClick={handleLogOut}>Log out</Button>
+          <button className="hover-links" onClick={handleLogOut}>
+            Log out
+          </button>
         ) : (
           <Link to="/login" className="p-4 hover-links">
             Login
