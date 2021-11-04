@@ -32,10 +32,10 @@ function MainPage() {
             </button>
           </div>
         </div>
-        <div class="flex flex-1">
+        <div className="flex flex-1">
           <img
             alt="cat and dog in a house"
-            class="object-cover overflow-hidden rounded-tl-2xl rounded-bl-2xl"
+            className="object-cover overflow-hidden rounded-tl-2xl rounded-bl-2xl"
             src="https://image.freepik.com/vecteurs-libre/chien-chat-animal-maison-logo-icone-illustration_7688-1444.jpg"
           />
         </div>

@@ -5,6 +5,9 @@ import MainPage from "./components/MainPage";
 import HotelDetails from "./components/HotelDetails"
 import Login from "./components/Login";
 import Register from "./components/Register";
+import { atom } from "jotai";
+
+export const userAtom = atom(true);
 
 function App() {
   return (

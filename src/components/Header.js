@@ -1,6 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import AuthService from "../services/auth.service";
+import { Menu, Dropdown, Button } from "antd";
+import { useAtom } from "jotai";
+import { userAtom } from "../../App";
+
 
 function Header() {
+
+let currentUser = JSON.parse(localStorage.getItem("user"));
+console.log(currentUser);
+
+let history = useHistory();
+  const handleLogOut = () => {
+    AuthService.logout();
+    history.push("/login");
+    
+  };
+
   return (
     <nav
       className="flex justify-between items-center h-20 bg-white shadow-md text-gray-600  sticky top-0 z-50"
@@ -32,7 +48,7 @@ function Header() {
           />
         </svg>
       </div>
-      <div className="pr-8 md:block  hidden ">
+      <div className="pr-8 md:block  hidden">
         <Link to="/" className="p-4 hover-links">
           Home
         </Link>
@@ -42,9 +58,13 @@ function Header() {
         <Link to="/" className="p-4 hover-links">
           Profile
         </Link>
-        <Link to="/" className="p-4 hover-links">
-          Login
-        </Link>
+        {currentUser ? (
+          <Button onClick={handleLogOut}>Log out</Button>
+        ) : (
+          <Link to="/login" className="p-4 hover-links">
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );
