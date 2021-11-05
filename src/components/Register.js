@@ -217,7 +217,7 @@ function Register() {
                       htmlType="submit"
                       className="rounded-full font-semibold"
                     >
-                      Submit
+                      Sign up
                     </Button>
                   </Form.Item>
                 </Form>

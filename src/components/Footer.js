@@ -3,7 +3,9 @@ function Footer() {
     <footer className="w-full bg-purple-600 bottom-0">
       <div className="flex flex-wrap text-center text-white">
         <div className="w-full md:w-1/3 p-5 border-r border-blue-800 md:text-left">
-          <div className="my-6 ml-3 text-xl font-semibold">ABOUT US</div>
+          <div className="my-6 ml-3 text-xl font-semibold text-gray-300">
+            ABOUT US
+          </div>
           <p className="p-3 text-gray-400">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac
             est massa. Donec eget elementum sapien, tincidunt tempor nunc. Cras
@@ -16,8 +18,46 @@ function Footer() {
           </p>
         </div>
 
+        <div className="w-full md:w-1/3 p-5">
+          <div className="mt-6 text-xl font-semibold text-gray-300">
+            SAY HELLO!
+          </div>
+          <form className="w-4/5 mx-auto mt-2 px-6 pt-6 pb-4 rounded">
+            <div className="flex items-center mb-4 text-gray-600">
+              <input
+                className="rounded w-full h-10 p-2 border-b text-sm outline-none bg-gray-200"
+                type="text"
+                placeholder="Username"
+              />
+            </div>
+            <div className="flex items-center mb-4 text-gray-600">
+              <input
+                className="rounded w-full h-10 p-2 border-b text-sm outline-none bg-gray-200"
+                type="text"
+                placeholder="Email"
+              />
+            </div>
+            <div className="mb-6 text-gray-600">
+              <textarea
+                className="w-full h-24 px-2 pt-2 border-b-2 text-sm outline-none rounded bg-gray-200"
+                placeholder="Message"
+              ></textarea>
+            </div>
+            <div className="flex justify-between items-center">
+              <button
+                className="mx-auto py-2 px-4 rounded-full bg-transparent hover:bg-yellow-800 border-2 border-gray-300 text-gray-300 font-bold tracking-wider "
+                type="button"
+              >
+                SEND
+              </button>
+            </div>
+          </form>
+        </div>
+
         <div className="w-full md:w-1/3 p-5 border-r border-blue-800">
-          <div className="my-6 text-xl font-semibold">CONTACT US</div>
+          <div className="my-6 text-xl font-semibold text-gray-300">
+            CONTACT US
+          </div>
           <p className="mt-8 text-gray-400">
             A108 Aviatorilor Street <br />
             Bucharest <br />
@@ -39,40 +79,6 @@ function Footer() {
               <i className="fab fa-linkedin-in fa-lg text-purple-500 transform rotate-45"></i>
             </div>
           </div>
-        </div>
-
-        <div className="w-full md:w-1/3 p-5">
-          <div className="mt-6 text-xl font-semibold">SAY HELLO!</div>
-          <form className="w-4/5 mx-auto mt-2 px-6 pt-6 pb-4 rounded">
-            <div className="flex items-center mb-4 text-gray-600">
-              <input
-                className="w-full h-10 p-2 border-b text-sm outline-none"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div className="flex items-center mb-4 text-gray-600">
-              <input
-                className="w-full h-10 p-2 border-b text-sm outline-none"
-                type="text"
-                placeholder="Email"
-              />
-            </div>
-            <div className="mb-6 text-gray-600">
-              <textarea
-                className="w-full h-24 px-2 pt-2 border-b-2 text-sm outline-none"
-                placeholder="Message"
-              ></textarea>
-            </div>
-            <div className="flex justify-between items-center">
-              <button
-                className="w-full py-2 px-4 rounded bg-orange-600 hover:bg-orange-700 text-white font-bold"
-                type="button"
-              >
-                SEND
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </footer>
