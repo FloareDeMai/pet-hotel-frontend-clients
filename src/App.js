@@ -6,6 +6,7 @@ import HotelDetails from "./components/HotelDetails"
 import Login from "./components/Login";
 import Register from "./components/Register";
 import { atom } from "jotai";
+import SearchResults from "./components/SearchResults";
 
 export const userAtom = atom(true);
 
@@ -17,9 +18,8 @@ function App() {
         <Route path="/hotels" exact component={Hotels} />
         <Route path="/hotel/:hotelName" exact component={HotelDetails} />
         <Route path="/login" exact component={Login} />
-        <Route path="/register" exact>
-        <Register></Register>
-        </Route>
+        <Route path="/register" exact component={Register}/>
+        <Route path="/results" exact component={SearchResults}/>
       </Switch>
     </Layout>
   );

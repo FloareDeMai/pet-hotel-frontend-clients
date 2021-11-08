@@ -1,15 +1,32 @@
 import { Link, useHistory } from "react-router-dom";
+import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
-import { Menu, Dropdown, Button } from "antd";
+import { Menu, Dropdown, Button, Form, Input } from "antd";
 import { useAtom } from "jotai";
 import { userAtom } from "../App";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCalendar from "./SearchCalendar";
+import { DatePicker, Space } from "antd";
+import moment from "moment";
+import SearchService from "../services/search.service";
 
 function Header() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
-  console.log(userLogged);
+  const [form] = Form.useForm();
+
+  const { RangePicker } = DatePicker;
+  const dateFormat = "DD-MM-YYYY";
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleDates = (range) => {
+    if (range) {
+      setStartDate(range[0].format("YYYY-MM-DD"));
+      setEndDate(range[1].format("YYYY-MM-DD"));
+    }
+  };
 
   let history = useHistory();
 
@@ -19,7 +36,21 @@ function Header() {
     setUserLogged(false);
   };
 
- 
+  const onFinishSearch = async (values) => {
+    let searchRequest = {
+      cityName: values.cityName,
+      startDate: startDate,
+      endDate: endDate,
+    };
+
+    SearchService.searchAvailableHotels(searchRequest).then((data) => {
+      form.resetFields();
+      history.push({
+        pathname: "/results",
+        state: { hotels: data.data },
+      });
+    });
+  };
 
   return (
     <>
@@ -35,7 +66,7 @@ function Header() {
         pauseOnHover
       />
       <nav
-        className="flex justify-between items-center h-20 bg-white shadow-md text-gray-600  sticky top-0 z-50 text-lg font-medium"
+        className="flex justify-between items-center h-30 bg-white shadow-md text-gray-600  sticky top-0 z-50 text-lg font-medium"
         role="navigation"
       >
         <Link to="/" className="pl-2 md:pl-8">
@@ -44,33 +75,49 @@ function Header() {
             className="rounded-full h-14"
             src="https://img2.pngio.com/pet-logo-logodix-pet-logo-png-800_600.png"
             layout="fill"
-            objectFit="contain"
-            objectPosition="left"
+            objectfit="contain"
+            objectposition="left"
           />
         </Link>
-        <div class="relative text-gray-600 ">
-          <input
-            type="search"
-            name="serch"
-            placeholder="City"
-            class=" bg-white  h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-300"
-          />
-          <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
-            <svg
-              className="h-4 w-4 fill-current "
-              xmlns="http://www.w3.org/2000/svg"
-              version="1.1"
-              id="Capa_1"
-              x="0px"
-              y="0px"
-              viewBox="0 0 56.966 56.966"
-              width="512px"
-              height="512px"
-            >
-              <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-            </svg>
-          </button>
-        </div>
+        <Form
+          form={form}
+          name="search"
+          onFinish={onFinishSearch}
+          className="relative text-gray-600 mt-6"
+        >
+          <Form.Item
+            name="cityName"
+            className=" bg-white  h-10 px-5 pr-10 rounded-full text-sm focus:outline-none outline-none border-2 border-gray-300 mb-2"
+          >
+            <Input
+              bordered={false}
+              type="search"
+              name="serch"
+              placeholder="City"
+              className="focus:outline-none outline-none "
+            />
+          </Form.Item>
+          <Form.Item className="absolute right-0 top-0 mt-2 mr-4">
+            <button type="submit">
+              <svg
+                className="h-4 w-4 fill-current "
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 56.966 56.966"
+                width="512px"
+                height="512px"
+              >
+                <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+              </svg>
+            </button>
+          </Form.Item>
+          <Form.Item name="intervals">
+            <SearchCalendar handledates={handleDates} />
+          </Form.Item>
+        </Form>
         <div className="pr-2 md:px-4 cursor-pointer md:hidden hover-links">
           <svg
             className="w-8 h-8"
@@ -87,6 +134,7 @@ function Header() {
             />
           </svg>
         </div>
+
         <div className="pr-8 md:block  hidden">
           <Link to="/" className="p-4 hover-links">
             Home
@@ -111,7 +159,6 @@ function Header() {
           )}
         </div>
       </nav>
-      <SearchCalendar/>
     </>
   );
 }

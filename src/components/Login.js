@@ -94,26 +94,26 @@ function Login() {
   };
 
   return (
-    <div class="flex items-center ">
-      <div class="flex-1 h-full max-w-4xl mx-auto  rounded-lg shadow-xl">
-        <div class="my-auto flex flex-col md:flex-row ">
-          <div class="invisible md:visible h-32 md:h-auto md:w-1/2">
+    <div className="flex items-center ">
+      <div className="flex-1 h-full max-w-4xl mx-auto  rounded-lg shadow-xl">
+        <div className="my-auto flex flex-col md:flex-row ">
+          <div className="invisible md:visible h-32 md:h-auto md:w-1/2">
             <img
               className="object-cover w-full h-full"
               src="https://image.freepik.com/vecteurs-libre/chien-chat-animal-maison-logo-icone-illustration_7688-1444.jpg"
               alt="img"
             />
           </div>
-          <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
-            <div class="w-full">
-              <div class="flex justify-center">
+          <div className="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
+            <div className="w-full">
+              <div className="flex justify-center">
                 <img
                   src="../images/birdhouse.png"
                   alt="pets"
                   className="h-20"
                 />
               </div>
-              <h1 class="mb-4 text-2xl font-bold text-center text-gray-700">
+              <h1 className="mb-4 text-2xl font-bold text-center text-gray-700">
                 Sign in
               </h1>
               <div>

@@ -5,9 +5,9 @@ import { userAtom } from "../App";
 function MainPage() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
   return (
-    <div class="flex flex-shrink sm:flex-row flex-col">
-      <div class="flex flex-1 flex-col justify-center p-3.5 min-w-0 md:mx-20">
-        <h2 class="object-cover text-gray-800 font-extrabold text-4xl mb-5 ">
+    <div className="flex flex-shrink sm:flex-row flex-col">
+      <div className="flex flex-1 flex-col justify-center p-3.5 min-w-0 md:mx-20">
+        <h2 className="object-cover text-gray-800 font-extrabold text-4xl mb-5 ">
           <span className="text-yellow-600">PET</span>{" "}
           <span className="text-purple-600">HOTELS</span>
         </h2>
