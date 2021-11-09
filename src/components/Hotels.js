@@ -3,20 +3,47 @@ import HotelService from "../services/hotel.service";
 import HotelCard from "./HotelCard";
 import FiltersBar from "./FiltersBar";
 import axios from "axios";
-import {useAtom} from 'jotai';
-import {filterHotelsAtom} from '../App'
+import { useAtom } from "jotai";
+import { filterHotelsAtom } from "../App";
+import {  useHistory } from "react-router-dom";
 
 function Hotels() {
   const [hotels, setHotels] = useAtom(filterHotelsAtom);
   const [isLoading, setIsLoading] = useState(true);
+  let history = useHistory();
 
-  const getHotelsWithVet = async() => {
-   await axios
-      .get("http://localhost:8080/api/pet-hotel/has-veterinary")
-      .then((data) => setHotels(data.data));
+  const getHotelsWithVet = async () => {
+    await HotelService.getAllPetHotelsWithVet()
+      .then((data) => {
+        setHotels(data.data);
+        history.push({
+          pathname: "/results",
+          state: {hotels: data.data}
+        })
+      });
   };
 
-  
+  const getAllHotels = async () => {
+    await HotelService.getAllPetHotels()
+      .then((data) => {
+        setHotels(data.data);
+        history.push({
+          pathname: "/results",
+          state: { hotels: data.data },
+        });
+      });
+  }
+
+    const getAllHotelsByRoomType = async () => {
+      await HotelService.getAllPetHotelsByRoomType().then((data) => {
+        setHotels(data.data);
+        history.push({
+          pathname: "/results",
+          state: { hotels: data.data },
+        });
+      });
+    };
+
 
   useEffect(() => {
     HotelService.getAllPetHotels()
@@ -29,7 +56,7 @@ function Hotels() {
 
   return (
     <div className="container mx-auto">
-      <FiltersBar getHotelsWithVet={getHotelsWithVet} />
+      <FiltersBar getHotelsWithVet={getHotelsWithVet} getAllHotels={getAllHotels}/>
 
       <div className="flex flex-wrap -mx-4">
         {hotels.map((hotel) => {
