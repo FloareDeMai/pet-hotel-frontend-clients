@@ -141,15 +141,13 @@ function Header() {
           <Link to="/" className="p-4 hover-links">
             Home
           </Link>
-          <Link to="/hotels" className="p-4 hover-links">
-            Hotels
-          </Link>
+
           <Link to="/" className="p-4 hover-links">
             Profile
           </Link>
           {userLogged ? (
             <button
-              className="hover-links text-lg font-medium"
+              className="p-4 hover-links text-lg font-medium"
               onClick={handleLogOut}
             >
               Log out

@@ -1,9 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useAtom } from "jotai";
 import { userAtom } from "../App";
+import HotelService from "../services/hotel.service";
 
 function MainPage() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
+  let history = useHistory();
+
+
+  const getAllHotels = async () => {
+    await HotelService.getAllPetHotels().then((data) => {
+      history.push({
+        pathname: "/results",
+        state: { hotels: data.data },
+      });
+    });
+  };
+
   return (
     <div className="flex flex-shrink sm:flex-row flex-col">
       <div className="flex flex-1 flex-col justify-center p-3.5 min-w-0 md:mx-20">
@@ -20,11 +33,11 @@ function MainPage() {
         </p>
         {userLogged ? (
           <div className="flex items-center space-x-6">
-            <Link to={{ pathname: "/hotels" }}>
-              <button className="text-lg py-1 w-40 rounded-full border-2 border-yellow-600 my-2 hover:bg-yellow-600 font-semibold text-purple-800">
+           
+              <button className="text-lg py-1 w-40 rounded-full border-2 border-yellow-600 my-2 hover:bg-yellow-600 font-semibold text-purple-800" onClick={getAllHotels}>
                 Explore
               </button>
-            </Link>
+            
           </div>
         ) : (
           <div className="flex items-center space-x-6 ">

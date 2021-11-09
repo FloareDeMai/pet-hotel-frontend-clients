@@ -1,13 +1,44 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import HotelService from "../services/hotel.service";
 
+function FiltersBar() {
+ let history = useHistory();
 
+ const getHotelsWithVet = async () => {
+   await HotelService.getAllPetHotelsWithVet().then((data) => {
+     history.push({
+       pathname: "/results",
+       state: { hotels: data.data },
+     });
+   });
+ };
 
-function FiltersBar({ getHotelsWithVet }) {
+ const getAllHotels = async () => {
+   await HotelService.getAllPetHotels().then((data) => {
+     
+     history.push({
+       pathname: "/results",
+       state: { hotels: data.data },
+     });
+   });
+ };
 
+ const getAllHotelsByRoomType = async () => {
+   await HotelService.getAllPetHotelsByRoomType().then((data) => {
+     console.log(data.data);
+     history.push({
+       pathname: "/results",
+       state: { hotels: data.data },
+     });
+   });
+ };
   return (
     <div className="flex mt-4 items-center">
-      <button className="flex mr-6 hover-filters " type="submit">
+      <button
+        className="flex mr-6 hover-filters "
+        type="submit"
+        onClick={getAllHotels}
+      >
         <img
           src="../../images/pet-house.png"
           alt="pethouse"
@@ -30,6 +61,7 @@ function FiltersBar({ getHotelsWithVet }) {
         <button
           className="text-2xl text-right"
           style={{ fontFamily: "Raleway" }}
+          onClick={getAllHotelsByRoomType}
         >
           For dogs
         </button>

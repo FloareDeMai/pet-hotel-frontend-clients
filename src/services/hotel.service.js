@@ -7,8 +7,18 @@ const getAllPetHotels = async () => {
     return await axios.get(API_URL + "/all-hotels");
 }
 
+const getAllPetHotelsByRoomType = async () => {
+  return await axios.get(API_URL + "/room-type");
+};
+
+const getAllPetHotelsWithVet = async () => {
+  return await axios.get(API_URL + "/has-veterinary");
+};
+
 const HotelService = {
-    getAllPetHotels
+    getAllPetHotels,
+    getAllPetHotelsByRoomType,
+    getAllPetHotelsWithVet
 }
 
 export default HotelService;
