@@ -1,7 +1,8 @@
-function HotelDetails() {
+function HotelDetails(props) {
+    let hotel = props.location.state.hotel
     return (
-        <div className="container">
-            hotel's details
+        <div className="flex items-center">
+            
         </div>
     )
 }

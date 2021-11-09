@@ -9,6 +9,7 @@ import { atom } from "jotai";
 import SearchResults from "./components/SearchResults";
 
 export const userAtom = atom(true);
+export const filterHotelsAtom = atom([])
 
 function App() {
   return (

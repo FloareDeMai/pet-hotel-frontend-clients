@@ -7,3 +7,7 @@
 .hover-links{
     @apply hover:text-yellow-600
 }
+
+.hover-filters {
+    @apply hover:bg-gray-100  rounded-lg p-2 text-center
+}

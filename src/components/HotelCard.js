@@ -1,27 +1,58 @@
 import { Link } from "react-router-dom";
 
 function HotelCard({ hotel }) {
-//  TODO de implementat pretul
+  //  TODO de implementat pretul
 
+  let rooms = hotel.hotelOffers;
+  let price = rooms.map((room) => room.pricePerDay);
+  price.sort();
+  if (price.length === 0) {
+    price = (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-4 w-6 text-red-600"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    );
+  } else if (price.length === 1) {
+    price = price[0];
+  } else if (price.length >= 2) {
+    price = `${price[0]}-${price[price.length - 1]}`;
+  }
+
+ 
   return (
-    <div className="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
+    <div
+      className="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4"
+      style={{ fontFamily: "Raleway" }}
+    >
       <Link
-        to={{pathname: `hotel/${hotel.hotelName}`, state: {hotel:hotel}}}
-        className="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
+        to={{ pathname: `hotel/${hotel.hotelName}`, state: { hotel: hotel } }}
+        className="hover:text-black c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden"
       >
         <div className="relative pb-48 overflow-hidden">
           <img
             className="absolute inset-0 h-full w-full object-cover"
             src={hotel.pictureLink}
-            alt=""
+            alt={hotel.hotelName}
           />
         </div>
         <div className="p-4">
-          <h2 className="mt-2 mb-2  font-bold">{hotel.hotelName}</h2>
-          
-          <div className="mt-3 flex items-center">
-            <span className="font-bold text-xl">{}</span>&nbsp;
-            <span className="text-sm font-semibold">RON</span>
+          <h2 className="mt-2 mb-2 text-2xl">{hotel.hotelName}</h2>
+
+          <div className="mt-3 flex items-center ">
+            <span className="font-semibold text-xl">{price}</span>
+            &nbsp;
+            <span className="text-sm font-medium ">RON</span>
           </div>
         </div>
         <div className="p-4 border-t border-b text-xs text-gray-700">

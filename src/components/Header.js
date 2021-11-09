@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import AuthService from "../services/auth.service";
 import { Menu, Dropdown, Button, Form, Input } from "antd";
 import { useAtom } from "jotai";
-import { userAtom } from "../App";
+import { userAtom, filterHotelsAtom } from "../App";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchCalendar from "./SearchCalendar";
@@ -13,6 +13,7 @@ import SearchService from "../services/search.service";
 
 function Header() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
+  const [hotels, setHotels] = useAtom(filterHotelsAtom);
   const [form] = Form.useForm();
 
   const { RangePicker } = DatePicker;
@@ -45,6 +46,7 @@ function Header() {
 
     SearchService.searchAvailableHotels(searchRequest).then((data) => {
       form.resetFields();
+      setHotels(data.data)
       history.push({
         pathname: "/results",
         state: { hotels: data.data },
@@ -66,7 +68,7 @@ function Header() {
         pauseOnHover
       />
       <nav
-        className="flex justify-between items-center h-30 bg-white shadow-md text-gray-600  sticky top-0 z-50 text-lg font-medium"
+        className="flex justify-between items-center h-30 bg-white shadow-md text-gray-600  sticky top-0 z-40 text-lg font-medium"
         role="navigation"
       >
         <Link to="/" className="pl-2 md:pl-8">
