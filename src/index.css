@@ -11,3 +11,7 @@
 .hover-filters {
     @apply hover:bg-gray-100  rounded-lg p-2 text-center
 }
+
+.active-button {
+    @apply bg-gray-100  rounded-lg p-2 text-center
+}
