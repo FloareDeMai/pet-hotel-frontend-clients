@@ -47,6 +47,7 @@ function Header() {
     SearchService.searchAvailableHotels(searchRequest).then((data) => {
       form.resetFields();
       setHotels(data.data)
+      localStorage.setItem("filters", JSON.stringify([]));
       history.push({
         pathname: "/results",
         state: { hotels: data.data },

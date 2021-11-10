@@ -1,37 +1,56 @@
 import { useHistory } from "react-router-dom";
 import HotelService from "../services/hotel.service";
+import { useState } from "react";
 
 function FiltersBar() {
- let history = useHistory();
+  let history = useHistory();
 
- const getHotelsWithVet = async () => {
-   await HotelService.getAllPetHotelsWithVet().then((data) => {
-     history.push({
-       pathname: "/results",
-       state: { hotels: data.data },
-     });
-   });
- };
+  let filterParams = JSON.parse(localStorage.getItem("filters"));
+ 
 
- const getAllHotels = async () => {
-   await HotelService.getAllPetHotels().then((data) => {
-     
-     history.push({
-       pathname: "/results",
-       state: { hotels: data.data },
-     });
-   });
- };
 
- const getAllHotelsByRoomType = async () => {
-   await HotelService.getAllPetHotelsByRoomType().then((data) => {
-     console.log(data.data);
-     history.push({
-       pathname: "/results",
-       state: { hotels: data.data },
-     });
-   });
- };
+  const getAllHotels = async () => {
+    localStorage.setItem("filters", JSON.stringify([]));
+    await HotelService.getAllPetHotels().then((data) => {
+      history.push({
+        pathname: "/results",
+        state: { hotels: data.data },
+      });
+    });
+    
+    
+  };
+
+  const getAllPetHotelsByFilterType = async (param) => {
+   
+    if (filterParams.indexOf(param) > -1) {
+      filterParams.splice(filterParams.indexOf(param), 1);
+       localStorage.setItem("filters", JSON.stringify(filterParams));
+       
+       await HotelService.getAllPetHotelsByFilterType(filterParams).then(
+         (data) => {
+           history.push({
+             pathname: "/results",
+             state: { hotels: data.data },
+           });
+         }
+       );
+    } else {
+      filterParams.push(param);
+      localStorage.setItem("filters", JSON.stringify(filterParams));
+      await HotelService.getAllPetHotelsByFilterType(filterParams).then(
+        (data) => {
+          history.push({
+            pathname: "/results",
+            state: { hotels: data.data },
+          });
+        }
+      );
+    }
+  };
+
+  
+
   return (
     <div className="flex mt-4 items-center">
       <button
@@ -61,7 +80,7 @@ function FiltersBar() {
         <button
           className="text-2xl text-right"
           style={{ fontFamily: "Raleway" }}
-          onClick={getAllHotelsByRoomType}
+          onClick={() => getAllPetHotelsByFilterType("DOGS")}
         >
           For dogs
         </button>
@@ -77,6 +96,7 @@ function FiltersBar() {
         <button
           className=" text-2xl text-right"
           style={{ fontFamily: "Raleway" }}
+          onClick={() => getAllPetHotelsByFilterType("CATS")}
         >
           For cats
         </button>
@@ -92,6 +112,7 @@ function FiltersBar() {
         <button
           className="text-2xl text-right"
           style={{ fontFamily: "Raleway" }}
+          onClick={() => getAllPetHotelsByFilterType("GARDEN")}
         >
           With a garden
         </button>
@@ -107,7 +128,7 @@ function FiltersBar() {
         <button
           className="text-2xl text-right"
           style={{ fontFamily: "Raleway" }}
-          onClick={getHotelsWithVet}
+          onClick={() => getAllPetHotelsByFilterType("VET")}
         >
           Has veterinary
         </button>

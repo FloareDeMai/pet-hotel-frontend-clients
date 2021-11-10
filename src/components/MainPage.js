@@ -7,6 +7,7 @@ function MainPage() {
   const [userLogged, setUserLogged] = useAtom(userAtom);
   let history = useHistory();
 
+  localStorage.setItem("filters", JSON.stringify([]));
 
   const getAllHotels = async () => {
     await HotelService.getAllPetHotels().then((data) => {
